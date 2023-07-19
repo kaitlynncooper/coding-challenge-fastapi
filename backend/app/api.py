@@ -5,13 +5,6 @@ import httpx
 
 app = FastAPI()
 
-origins = [
-    "http://localhost:3001/",
-    "localhost:3001"
-]
-
-
-# TODO - currently allowing all origins, may need to restrict further for security
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
