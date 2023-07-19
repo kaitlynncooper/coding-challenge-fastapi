@@ -5,7 +5,7 @@ import {useState} from 'react'
 
 function App() {
 
-  const [table, setTable] = useState([])
+  const [tableData, setTable] = useState([])
 
   // Sends post request to fastAPI backend with user-entered data from form
   const fetchDif = async (entry_id, assembly_id, interface_id) => {
@@ -30,11 +30,15 @@ function App() {
 
       // Iterate over bound list and compile result of the form:
       // [residue_position, unbound_asa, bound_asa, asa_diference]
-      return bound_positions.values.map((value, i) => {
-        let bound_asa = value
-        let unbound_asa = unbound_positions.values[i]
-        return [i, unbound_asa, bound_asa, unbound_asa - bound_asa]
-      })
+      return {
+        "interface_partner_identifier": partner.interface_partner_identifier,
+        "table_data": 
+          bound_positions.values.map((value, i) => {
+          let bound_asa = value
+          let unbound_asa = unbound_positions.values[i]
+          return [i, unbound_asa, bound_asa, unbound_asa - bound_asa]
+          })
+      }
     })
     return result
   }
@@ -44,7 +48,7 @@ function App() {
     <div className="app">
       <Header title="Solvent ASA Difference Calculator"/>
       <Form calcDif={fetchDif}/>
-      <Table data={table}/>
+      <Table data={tableData}/>
     </div>
   );
 }
