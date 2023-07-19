@@ -2,14 +2,14 @@ import {useState} from 'react'
 
 const Form = ({calcDif}) => {
 
-    const [entry_id, setEntry] = useState(0)
+    const [entry_id, setEntry] = useState('')
     const [assembly_id, setAssembly] = useState(0)
     const [interface_id, setInterface] = useState(0)
 
     const submitForm = (e) => {
         e.preventDefault()
 
-        if(entry_id === 0 || assembly_id === 0 || interface_id === 0) {
+        if(entry_id === '' || assembly_id === 0 || interface_id === 0) {
             alert(`Please fill out all fields`)
             return
         }
@@ -19,7 +19,7 @@ const Form = ({calcDif}) => {
         calcDif(entry_id, assembly_id, interface_id)
 
         // Reset form details after submission
-        setEntry(0)
+        setEntry('')
         setAssembly(0)
         setInterface(0)
 
@@ -29,7 +29,7 @@ const Form = ({calcDif}) => {
         <form className="form" onSubmit={submitForm}>
              <div className='form-entry'>
                 <label>Entry ID</label>
-                <input type='number' placeholder='Add entry_id' value = {entry_id} onChange={(e) => setEntry(parseInt(e.target.value))}></input>
+                <input type='text' placeholder='Add entry_id' value = {entry_id} onChange={(e) => setEntry(e.target.value)}></input>
             </div>
             <div className='form-entry'>
                 <label>Assembly ID</label>

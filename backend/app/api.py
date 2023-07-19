@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import httpx
 
 
 app = FastAPI()
@@ -28,8 +29,5 @@ async def read_root() -> dict:
 # get request to RCSB API to extract Surface ASA data
 @app.post("/asa-change")
 async def calculate_asa_change(entry_id: str, assembly_id: str, interface_id: str): 
-    return {
-        "entry": entry_id,
-        "assembly": assembly_id,
-        "interface": interface_id
-    }
+    res = httpx.get(f'https://data.rcsb.org/rest/v1/core/interface/{entry_id}/{assembly_id}/{interface_id}')
+    return res.json()
