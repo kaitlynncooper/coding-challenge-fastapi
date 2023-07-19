@@ -44,7 +44,7 @@ function App() {
           bound_positions.values.map((value, i) => {
           let bound_asa = value
           let unbound_asa = unbound_positions.values[i]
-          return [i, unbound_asa, bound_asa, unbound_asa - bound_asa]
+          return [i+1, unbound_asa, bound_asa, unbound_asa - bound_asa]
           })
       }
     })
