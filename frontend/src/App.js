@@ -2,6 +2,7 @@ import Header from './components/Header'
 import Form from './components/Form'
 import Table from './components/Table'
 import {useState} from 'react'
+import './styles.css'
 
 function App() {
 
@@ -9,14 +10,21 @@ function App() {
 
   // Sends post request to fastAPI backend with user-entered data from form
   const fetchDif = async (entry_id, assembly_id, interface_id) => {
+
+    try {
     const res = await fetch(`http://localhost:8000/asa-change?entry_id=${entry_id}&assembly_id=${assembly_id}&interface_id=${interface_id} `, {
       method: 'POST',
     })
     const data = await res.json()
 
+    // Compute differences and return table with desired values
     let differences = computeDif(data)
+    setTable(differences)}
 
-    setTable(differences)
+    catch(err) {
+      // Handles any/all errors that result from incorrect entry values
+      alert(`RCSB API was unable to retrieve data for entry_id: ${entry_id} assembly_id: ${assembly_id} interface_id: ${interface_id}`)
+    }
 
   }
 
